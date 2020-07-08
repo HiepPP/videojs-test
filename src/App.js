@@ -31,7 +31,7 @@ export default function App() {
         res: 720
       },
       {
-        src: "http://184.72.239.149/vod/smil:BigBuckBunny.smil/playlist.m3u8",
+        src: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8",
         type: "application/x-mpegURL",
         label: "HD2",
         res: 720
@@ -41,8 +41,11 @@ export default function App() {
   useEffect(() => {
     vjsqs(videojs);
     const player = videojs(playerRef.current, videoJsOptions, () => {
-      console.log(player.controlBar);
-      player.controlBar.addChild("QualitySelector");
+      console.log(player);
+      player.on("ended", function() {
+        alert("ended");
+      });
+      // player.controlBar.addChild("QualitySelector");
     });
     return () => {
       player.dispose();
@@ -53,8 +56,7 @@ export default function App() {
       <div data-vjs-player>
         <video
           ref={playerRef}
-          className="video-js vjs-4-3"
-          data-setup='{"liveui": false}'
+          className="video-js vjs-4-3 vjs-big-play-centered"
         />
       </div>
     </>
